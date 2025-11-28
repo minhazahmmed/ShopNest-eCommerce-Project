@@ -30,6 +30,7 @@ const AdminLoginForm = () => {
         console.log(error);
       });
   };
+  
 
   return (
     <div className="w-[400px]  h-[600px] ">
