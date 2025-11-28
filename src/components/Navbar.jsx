@@ -4,10 +4,12 @@ import { ShoppingBasket } from 'lucide-react';
 
 const Navbar = () => {
     return (
-        <nav className="w-full px-6 py-3 flex justify-between items-center shadow-sm">
+        <nav className="w-full shadow-sm px-6 py-3 flex justify-between items-center ">
       
-      {/* Left side: Logo + Text */}
-      <div className="flex items-center gap-3">
+    
+
+         {/* Left side: Logo + Text */}
+      <div className="flex items-center gap-3 ">
         <img src={Logo} alt="ShopNest Logo" className="w-12 h-12 object-contain cursor-pointer transition-colors" />
         <div className="flex flex-col">
           <span className="text-green-500 hover:text-green-700 cursor-pointer transition-colors font-bold text-xl">ShopNest</span>
@@ -19,6 +21,8 @@ const Navbar = () => {
       <div>
         <ShoppingBasket className="w-6 h-6 text-green-500 hover:text-green-900 cursor-pointer transition-colors " />
       </div>
+
+
 
     </nav>
     );
