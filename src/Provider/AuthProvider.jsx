@@ -1,3 +1,4 @@
+
 import React, { createContext, useEffect, useMemo, useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -17,24 +18,24 @@ const AuthProvider = ({ children }) => {
 
   const provider = new GoogleAuthProvider();
 
-  // Stable admin list
+  // --- single admin definition ---
   const adminList = useMemo(
     () => [
-      { email: "adminminhaz@gmail.com", uid: "pGsRJnQC69YhN5r72niCmW9eTX93" },
-      { email: "adminmuntasir@gmail.com", uid: "KGPbHN4R3tP95naDckPv5TNBW232" },
+      {
+    email: import.meta.env.VITE_ADMIN_EMAIL,
+    uid: import.meta.env.VITE_ADMIN_UID,
+  },
     ],
     []
   );
 
-  // Register
+  // Auth helpers
   const registerWithEmailPassword = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 
-  // Login
   const loginWithEmailPassword = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
 
-  // Google SignIn
   const googleSignin = () => signInWithPopup(auth, provider);
 
   useEffect(() => {
@@ -42,17 +43,15 @@ const AuthProvider = ({ children }) => {
       if (firebaseUser) {
         let role = "user";
 
-        // Check if user matches admin list
+        // check fixed admin list
         const isAdmin = adminList.some(
-          (admin) =>
-            admin.uid === firebaseUser.uid ||
-            admin.email === firebaseUser.email
+          (a) => a.uid === firebaseUser.uid || a.email === firebaseUser.email
         );
 
         if (isAdmin) {
           role = "admin";
         } else {
-          // Fetch Firestore role
+          // try Firestore users/{uid} role fallback (optional)
           try {
             const docRef = doc(db, "users", firebaseUser.uid);
             const docSnap = await getDoc(docRef);
@@ -74,7 +73,6 @@ const AuthProvider = ({ children }) => {
       } else {
         setUser(null);
       }
-
       setLoading(false);
     });
 

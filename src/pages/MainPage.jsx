@@ -43,7 +43,7 @@ const MainPage = () => {
   return (
     <div>
 
-      {/* 🔥 AUTH SECTION WITH BACKGROUND IMAGE */}
+      {/* AUTH SECTION WITH BACKGROUND IMAGE */}
       <div
         className="bg-cover bg-center bg-no-repeat"
         style={{
@@ -76,14 +76,14 @@ const MainPage = () => {
         </div>
       </div>
 
-      {/* 🔥 FEATURED PRODUCTS (NO BACKGROUND HERE) */}
+      {/* FEATURED PRODUCTS (NO BACKGROUND HERE) */}
       <FeaturedProducts
         onCategoryClick={scrollToLoginForm}
         setIsSignUp={setIsSignUp}
         setActiveTab={setActiveTab}
       />
 
-      {/* 🔥 WHY CHOOSE SHOPNEST */}
+      {/* WHY CHOOSE SHOPNEST */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">

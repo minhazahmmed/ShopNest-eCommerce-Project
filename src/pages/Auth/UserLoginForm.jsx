@@ -53,13 +53,9 @@ const UserLoginForm = ({setUserTab}) => {
 
 
   return (
-    <div className="w-full max-w-[350px] sm:max-w-md md:max-w-lg mx-auto  md:h-[605px]">
-  <div className="p-6 sm:p-8 bg-white/60 backdrop-blur-2xl rounded-2xl border border-white/40 shadow-lg ">
-    <h2 className="text-[24px] md:text-[28px] font-bold text-green-700 text-center ">
-      Welcome Back
+    <div className="w-full max-w-[400px] mx-auto">
+  <div className="px-5 sm:px-7 backdrop-blur-2xl rounded-2xl  ">
 
-    </h2>
-    <p className="text-sm text-center font-normal mb-4">Sign in to your grocery account</p>
     
 
     <form onSubmit={handleSubmit} className="space-y-3">
@@ -93,14 +89,14 @@ const UserLoginForm = ({setUserTab}) => {
         Sign In
       </button>
 
-      <div className="divider">OR</div>
+      <div className="divider text-gray-600 text-[14px]">OR</div>
 
       <button
         type="button"
         onClick={handleGoogleSignin}
         className="btn w-full bg-white text-black rounded-xl"
       >
-        <FcGoogle className="inline-block mr-2" /> Sign in with Google
+        <FcGoogle className="inline-block mr-2 text-lg" /> Sign in with Google
       </button>
 
       <p className="text-center text-sm mt-3">

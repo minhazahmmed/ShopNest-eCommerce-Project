@@ -1,7 +1,8 @@
+
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const AdminLoginForm = () => {
@@ -9,72 +10,89 @@ const AdminLoginForm = () => {
   const { loginWithEmailPassword, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // For extra safety: also define admin constants here (must match AuthProvider)
+  const ADMIN_EMAIL = "admin@gmail.com";
+  const ADMIN_UID = "pGsRJnQC69YhN5r72niCmW9eTX93";
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
+    const email = e.target.email.value.trim();
     const password = e.target.password.value;
 
     loginWithEmailPassword(email, password)
       .then((res) => {
-        const user = res.user;
+        const firebaseUser = res.user;
 
-        if (user.email === "admin@example.com") {
-          setUser(user);
-          toast.success("Admin login successful", { position: "bottom-right" });
-          navigate("/admin");
+        // check UID or email against admin
+        if (
+          firebaseUser.uid === ADMIN_UID ||
+          firebaseUser.email === ADMIN_EMAIL
+        ) {
+          // setUser will be also set by onAuthStateChanged, but set now for immediacy
+          setUser({
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            displayName: firebaseUser.displayName,
+            photoURL: firebaseUser.photoURL,
+            role: "admin",
+          });
+
+          toast.success("Admin login successful", { position: "top-right" });
+          // small delay so toast appears
+          setTimeout(() => navigate("/admin"), 400);
         } else {
-          toast.error("Not an admin account", { position: "bottom-right" });
+          toast.error("Not an admin account", { position: "top-right" });
         }
       })
       .catch((error) => {
-        toast.error("Login failed", { position: "bottom-right" });
         console.log(error);
+        toast.error("Login failed: " + (error.message || ""), {
+          position: "top-right",
+        });
       });
   };
 
   return (
-    <div className="w-full max-w-[350px] sm:max-w-md md:max-w-lg mx-auto">
-  <div className="p-6 sm:p-8 bg-white/70 rounded-2xl border border-white/40 shadow-lg">
-    <h2 className="text-xl sm:text-2xl font-bold text-green-700 text-center mb-4">
-      Admin Sign in
-    </h2>
+    <div className="w-full max-w-[400px] mx-auto">
+      <div className="px-5 sm:px-7 rounded-2xl  ">
+      
 
-    <form onSubmit={handleSubmit} className="space-y-3">
-      <label className="text-sm font-semibold text-gray-700">Email</label>
-      <input
-        name="email"
-        type="email"
-        required
-        placeholder="Admin Email"
-        className="input input-bordered w-full bg-white/70 border-green-200"
-      />
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <label className="text-sm font-semibold text-gray-700">Email</label>
+          <input
+            name="email"
+            type="email"
+            required
+            placeholder="Admin Email"
+            className="input input-bordered w-full bg-white/70 border-green-200"
+          />
 
-      <label className="text-sm font-semibold text-gray-700">Password</label>
-      <div className="relative">
-        <input
-          name="password"
-          type={showPassword ? "text" : "password"}
-          required
-          placeholder="Admin Password"
-          className="input input-bordered w-full bg-white/70 border-green-200"
-        />
-        <span
-          className="absolute right-3 top-3 cursor-pointer text-gray-700"
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? <FaEyeSlash /> : <FaEye />}
-        </span>
+          <label className="text-sm font-semibold text-gray-700">Password</label>
+          <div className="relative">
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              required
+              placeholder="Admin Password"
+              className="input input-bordered w-full bg-white/70 border-green-200"
+            />
+            <span
+              className="absolute right-3 top-3 cursor-pointer text-gray-700"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          <button
+            type="submit"
+            className="btn w-full bg-orange-500 text-white rounded-xl"
+          >
+            Admin Login
+          </button>
+        </form>
       </div>
-
-      <button type="submit" className="btn w-full bg-green-800 text-white rounded-xl">
-        Admin Login
-      </button>
-    </form>
-  </div>
-
-  <ToastContainer />
-</div>
-
+    </div>
   );
 };
 

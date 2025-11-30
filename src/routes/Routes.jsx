@@ -7,6 +7,9 @@ import Error from "../pages/Error";
 import About from "../pages/About";
 import ScrollToTop from "../components/ScrollToTop";
 
+import AdminRoute from "./AdminRoute";
+import AdminHome from "../pages/AdminHome";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,7 +19,7 @@ const router = createBrowserRouter([
         <ScrollToTop />
       </>
     ),
-    errorElement: <Error></Error>,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -29,6 +32,16 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+
+ 
+      {
+        path: "/admin",
+        element: (
+          <AdminRoute>
+            <AdminHome />
+          </AdminRoute>
+        ),
       },
     ],
   },
