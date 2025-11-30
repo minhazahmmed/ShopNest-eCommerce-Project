@@ -1,12 +1,13 @@
 import React from "react";
 import Logo from "../assets/shopnest-logo.png";
 import { ShoppingBasket } from "lucide-react";
+import { Link } from "react-router";
 
 const Navbar = () => {
   return (
-    <nav className="w-full shadow-sm px-6 py-3 flex justify-between items-center ">
+    <nav className="w-full shadow-sm px-6 py-3 flex justify-between items-center z-50 sticky top-0 bg-white ">
       {/* Left side: Logo + Text */}
-      <div className="flex items-center gap-3 ">
+      <Link to={'/'} className="flex items-center gap-3 ">
         <img
           src={Logo}
           alt="ShopNest Logo"
@@ -18,7 +19,7 @@ const Navbar = () => {
           </span>
           <span className="text-sm">Fresh & Fast Delivery</span>
         </div>
-      </div>
+      </Link>
 
       {/* Right side: Shopping Cart */}
       <div>

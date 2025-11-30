@@ -33,54 +33,48 @@ const AdminLoginForm = () => {
   };
 
   return (
-    <div className="w-[400px] h-[600px]">
-      <div className="p-6 bg-white/70 rounded-2xl border border-white/40 shadow-lg">
-        <h2 className="text-2xl font-bold text-green-700 text-center mb-4">
-          Admin Sign in
-        </h2>
+    <div className="w-full max-w-[350px] sm:max-w-md md:max-w-lg mx-auto">
+  <div className="p-6 sm:p-8 bg-white/70 rounded-2xl border border-white/40 shadow-lg">
+    <h2 className="text-xl sm:text-2xl font-bold text-green-700 text-center mb-4">
+      Admin Sign in
+    </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-3">
-          {/* Email */}
-          <label className="text-sm font-semibold text-gray-700">Email</label>
-          <input
-            name="email"
-            type="email"
-            required
-            placeholder="Admin Email"
-            className="input input-bordered w-full bg-white/70 border-green-200"
-          />
+    <form onSubmit={handleSubmit} className="space-y-3">
+      <label className="text-sm font-semibold text-gray-700">Email</label>
+      <input
+        name="email"
+        type="email"
+        required
+        placeholder="Admin Email"
+        className="input input-bordered w-full bg-white/70 border-green-200"
+      />
 
-          {/* Password */}
-          <label className="text-sm font-semibold text-gray-700">Password</label>
-          <div className="relative">
-            <input
-              name="password"
-              type={showPassword ? "text" : "password"}
-              required
-              placeholder="Admin Password"
-              className="input input-bordered w-full bg-white/70 border-green-200"
-            />
-
-            {/* Eye Toggle Button */}
-            <span
-              className="absolute right-3 top-3 cursor-pointer text-gray-700"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
-          </div>
-
-          <button
-            type="submit"
-            className="btn w-full bg-green-800 text-white rounded-xl"
-          >
-            Admin Login
-          </button>
-        </form>
+      <label className="text-sm font-semibold text-gray-700">Password</label>
+      <div className="relative">
+        <input
+          name="password"
+          type={showPassword ? "text" : "password"}
+          required
+          placeholder="Admin Password"
+          className="input input-bordered w-full bg-white/70 border-green-200"
+        />
+        <span
+          className="absolute right-3 top-3 cursor-pointer text-gray-700"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
       </div>
 
-      <ToastContainer />
-    </div>
+      <button type="submit" className="btn w-full bg-green-800 text-white rounded-xl">
+        Admin Login
+      </button>
+    </form>
+  </div>
+
+  <ToastContainer />
+</div>
+
   );
 };
 

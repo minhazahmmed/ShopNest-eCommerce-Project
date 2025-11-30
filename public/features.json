@@ -1,0 +1,22 @@
+[
+  {
+    "icon": "Truck",
+    "title": "Fast Delivery",
+    "description": "Get your groceries delivered in under 30 minutes"
+  },
+  {
+    "icon": "Leaf",
+    "title": "Fresh Products",
+    "description": "Farm-fresh produce delivered to your doorstep"
+  },
+  {
+    "icon": "Shield",
+    "title": "Secure Payment",
+    "description": "Safe and encrypted payment methods"
+  },
+  {
+    "icon": "Clock",
+    "title": "24/7 Support",
+    "description": "Round-the-clock customer service"
+  }
+]

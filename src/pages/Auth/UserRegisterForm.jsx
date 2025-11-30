@@ -69,47 +69,89 @@ const UserRegisterForm = ({setUserTab}) => {
 
  
   return (
-    <div className="w-[400px]  h-[600px] ">
-      <div className="p-6 bg-white/60 backdrop-blur-2xl rounded-2xl border border-white/40 shadow-lg">
-        <h2 className="text-2xl font-bold text-green-700 text-center mb-4">Create account</h2>
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <label className="text-sm font-semibold text-gray-700">Name</label>
-          <input name="name" type="text" required placeholder="Your Name"
-            className="input input-bordered w-full bg-white/70 border-green-200 focus:border-green-500 focus:ring focus:ring-green-200" />
+ <div className="w-full max-w-[350px] sm:max-w-md md:max-w-lg mx-auto  md:h-[605px]">
+  <div className="p-6 sm:p-8 bg-white/60 backdrop-blur-2xl rounded-2xl border border-white/40 shadow-lg">
+    <h2 className="text-[24px] md:text-[28px] font-bold text-green-700 text-center ">
+      Create Account
+    </h2>
 
-          <label className="text-sm font-semibold text-gray-700">Email</label>
-          <input name="email" type="email" required placeholder="Your Email"
-            className="input input-bordered w-full bg-white/70 border-green-200 focus:border-green-500 focus:ring focus:ring-green-200" />
+     <p className="text-sm text-center font-normal mb-4">Sign up to start shopping fresh!</p>
 
-          <label className="text-sm font-semibold text-gray-700">Photo URL</label>
-          <input name="photoURL" type="text" placeholder="Photo URL (optional)"
-            className="input input-bordered w-full bg-white/70 border-green-200" />
+    <form onSubmit={handleSubmit} className="space-y-3">
+      <label className="text-sm font-semibold text-gray-700">Name</label>
+      <input
+        name="name"
+        type="text"
+        required
+        placeholder="Your Name"
+        className="input input-bordered w-full bg-white/70 border-green-200"
+      />
 
-          <label className="text-sm font-semibold text-gray-700">Password</label>
-          <div className="relative">
-            <input name="password" type={showPassword ? "text" : "password"} required placeholder="Create Password"
-              className="input input-bordered w-full bg-white/70 border-green-200" />
-            <span className="absolute right-3 top-3 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
-          </div>
+      <label className="text-sm font-semibold text-gray-700">Email</label>
+      <input
+        name="email"
+        type="email"
+        required
+        placeholder="Your Email"
+        className="input input-bordered w-full bg-white/70 border-green-200"
+      />
 
-          {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
+      <label className="text-sm font-semibold text-gray-700">Photo URL</label>
+      <input
+        name="photoURL"
+        type="text"
+        placeholder="Photo URL (optional)"
+        className="input input-bordered w-full bg-white/70 border-green-200"
+      />
 
-          <button type="submit" className="btn w-full bg-green-600 hover:bg-green-700 text-white rounded-xl">Register</button>
-
-          <div className="divider">OR</div>
-
-          <button type="button" onClick={handleGoogleSignup} className="btn w-full bg-white text-black rounded-xl">
-            <FcGoogle className="inline-block mr-2" /> Sign up with Google
-          </button>
-
-          <p className="text-center text-sm mt-3">Already have an account?
-            <button onClick={() => setUserTab('login')} className="text-green-700 font-semibold ml-1">Login</button>
-          </p>
-        </form>
+      <label className="text-sm font-semibold text-gray-700">Password</label>
+      <div className="relative">
+        <input
+          name="password"
+          type={showPassword ? "text" : "password"}
+          required
+          placeholder="Create Password"
+          className="input input-bordered w-full bg-white/70 border-green-200"
+        />
+        <span
+          className="absolute right-3 top-3 cursor-pointer"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
       </div>
-    </div>
+
+      {passwordError && (
+        <p className="text-red-500 text-sm">{passwordError}</p>
+      )}
+
+      <button className="btn w-full bg-green-600 hover:bg-green-700 text-white rounded-xl">
+        Register
+      </button>
+
+      <div className="divider">OR</div>
+
+      <button
+        type="button"
+        onClick={handleGoogleSignup}
+        className="btn w-full bg-white text-black rounded-xl"
+      >
+        <FcGoogle className="inline-block mr-2" /> Sign up with Google
+      </button>
+
+      <p className="text-center text-sm mt-3">
+        Already have an account?
+        <button
+          onClick={() => setUserTab("login")}
+          className="text-green-700 font-semibold ml-1"
+        >
+          Login
+        </button>
+      </p>
+    </form>
+  </div>
+</div>
+
   );
 };
 

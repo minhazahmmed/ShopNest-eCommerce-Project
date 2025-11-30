@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -9,7 +9,6 @@ import {
 import { doc, getDoc } from "firebase/firestore";
 import auth, { db } from "../firebase/firebase.config";
 
-
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -18,53 +17,53 @@ const AuthProvider = ({ children }) => {
 
   const provider = new GoogleAuthProvider();
 
-  // Register Function
-  const registerWithEmailPassword = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+  // Stable admin list
+  const adminList = useMemo(
+    () => [
+      { email: "adminminhaz@gmail.com", uid: "pGsRJnQC69YhN5r72niCmW9eTX93" },
+      { email: "adminmuntasir@gmail.com", uid: "KGPbHN4R3tP95naDckPv5TNBW232" },
+    ],
+    []
+  );
 
-  // Login Function
-  const loginWithEmailPassword = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
+  // Register
+  const registerWithEmailPassword = (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password);
 
-  // Google Signin / Signup
-  const googleSignin = () => {
-    return signInWithPopup(auth, provider);
-  };
+  // Login
+  const loginWithEmailPassword = (email, password) =>
+    signInWithEmailAndPassword(auth, email, password);
 
-  // Admin users (fixed)
-  const adminList = [
-    { email: "adminminhaz@gmail.com", uid: "pGsRJnQC69YhN5r72niCmW9eTX93" },
-    { email: "adminmuntasir@gmail.com", uid: "KGPbHN4R3tP95naDckPv5TNBW232" },
-  ];
+  // Google SignIn
+  const googleSignin = () => signInWithPopup(auth, provider);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        let role = "user"; // default role
+        let role = "user";
 
-        // Check if user is in admin list
+        // Check if user matches admin list
         const isAdmin = adminList.some(
           (admin) =>
-            admin.uid === firebaseUser.uid || admin.email === firebaseUser.email
+            admin.uid === firebaseUser.uid ||
+            admin.email === firebaseUser.email
         );
+
         if (isAdmin) {
           role = "admin";
         } else {
-          // If not in fixed admin list, try fetching role from Firestore
+          // Fetch Firestore role
           try {
             const docRef = doc(db, "users", firebaseUser.uid);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists() && docSnap.data().role) {
-              role = docSnap.data().role; // override if Firestore has role
+              role = docSnap.data().role;
             }
           } catch (err) {
             console.error("Error fetching user role:", err);
           }
         }
 
-        // Set user object including role
         setUser({
           uid: firebaseUser.uid,
           email: firebaseUser.email,
@@ -80,7 +79,7 @@ const AuthProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [adminList]);
 
   const authdata = {
     registerWithEmailPassword,
