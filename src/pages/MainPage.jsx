@@ -13,8 +13,8 @@ const MainPage = () => {
         backgroundImage: `url(${heroBG})`,
       }}
     >
-      <div className="bg-white/50 backdrop-blur-sm w-full ">
-        <div className="max-w-[1200px] mx-auto pt-20 pb-16 px-4 lg:flex justify-between items-center gap-10 min-h-screen">
+      <div className="bg-white/55 backdrop-blur-sm w-full ">
+        <div className="max-w-[1200px] mx-auto pt-20 pb-16 px-4 lg:flex justify-between items-center gap-10">
           {/* LEFT SIDE HERO CONTENT */}
           <div className=" text-center lg:text-left space-y-6">
             <HeroTag />

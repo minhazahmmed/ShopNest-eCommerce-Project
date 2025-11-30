@@ -17,17 +17,33 @@ const LoginRegister = () => {
       {mode === "user" ? (
         <div>
           <div className="flex items-center justify-center gap-2 mb-4">
-            <button onClick={() => setUserTab("login")}
-              className={`px-4 py-2 rounded-lg ${userTab === "login" ? "bg-green-600 text-white" : "bg-white/30 text-gray-500"}`}>
+            <button
+              onClick={() => setUserTab("login")}
+              className={`px-4 py-2 rounded-lg ${
+                userTab === "login"
+                  ? "bg-green-600 text-white"
+                  : "bg-white/30 text-gray-500"
+              }`}
+            >
               Login
             </button>
-            <button onClick={() => setUserTab("register")}
-              className={`px-4 py-2 rounded-lg ${userTab === "register" ? "bg-green-600 text-white" : "bg-white/30 text-gray-500"}`}>
+            <button
+              onClick={() => setUserTab("register")}
+              className={`px-4 py-2 rounded-lg ${
+                userTab === "register"
+                  ? "bg-green-600 text-white"
+                  : "bg-white/30 text-gray-500"
+              }`}
+            >
               Register
             </button>
           </div>
 
-          {userTab === "login" ? <UserLoginForm /> : <UserRegisterForm />}
+          {userTab === "login" ? (
+            <UserLoginForm setUserTab={setUserTab} />
+          ) : (
+            <UserRegisterForm setUserTab={setUserTab} />
+          )}
         </div>
       ) : (
         <AdminLoginForm />

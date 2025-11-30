@@ -1,15 +1,17 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router";
 
-const UserRegisterForm = () => {
+const UserRegisterForm = ({setUserTab}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
+  
   const { registerWithEmailPassword, setUser, googleSignin } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -34,34 +36,38 @@ const UserRegisterForm = () => {
         updateProfile(auth.currentUser, { displayName: name, photoURL: photoURL })
           .then(() => {
             setUser(user);
-            toast.success("Registration successful", { position: "bottom-right" });
-            navigate("/");
+            toast.success("Registration successful", { position: "top-right" });
+            navigate("/home");
           })
           .catch((error) => {
             console.log(error);
-            toast.error("Profile update failed", { position: "bottom-right" });
+            toast.error("Profile update failed", { position: "top-right" });
           });
       })
       .catch((error) => {
         console.log(error);
-        toast.error(error.message || "Registration failed", { position: "bottom-right" });
+        toast.error(error.message || "Registration failed", { position: "top-right" });
       });
   };
 
   const handleGoogleSignup = () => {
-    googleSignin()
+     googleSignin()
       .then((result) => {
         const user = result.user;
         setUser(user);
-        toast.success("Registration successful", { position: "bottom-right" });
-        navigate("/");
+        toast.success("Registration successful", { position: "top-right" });
+         setTimeout(() => {
+          navigate("/home");
+        }, 400);
       })
       .catch((error) => {
+        toast.error("Registration Failed");
         console.log(error);
-        toast.error(error.message || "Google signup failed", { position: "bottom-right" });
       });
   };
 
+
+ 
   return (
     <div className="w-[400px]  h-[600px] ">
       <div className="p-6 bg-white/60 backdrop-blur-2xl rounded-2xl border border-white/40 shadow-lg">
@@ -99,7 +105,7 @@ const UserRegisterForm = () => {
           </button>
 
           <p className="text-center text-sm mt-3">Already have an account?
-            <Link to="/login" className="text-green-700 font-semibold ml-1">Login</Link>
+            <button onClick={() => setUserTab('login')} className="text-green-700 font-semibold ml-1">Login</button>
           </p>
         </form>
       </div>
